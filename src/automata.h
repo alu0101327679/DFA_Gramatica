@@ -25,6 +25,7 @@ class Automata {
   ~Automata();
   void Analizar(std::string);
   void Mostrar(std::ostream& os);
+  void ImprimirFichero(std::ostream& os);
   std::vector<char> Split(std::string);
   void SetSimbolos(std::string);
   void SetNumerodeNodos(std::string);

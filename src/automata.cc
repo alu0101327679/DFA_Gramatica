@@ -4,6 +4,8 @@ Automata::Automata() {}
 
 Automata::~Automata() {}
 
+/// @brief Analiza el fichero de entrada y guarda los datos en el automata
+/// @param nombre 
 void Automata::Analizar(std::string nombre) {
   std::vector<std::string> lineas_transiciones;
   std::ifstream file(nombre);
@@ -27,6 +29,9 @@ void Automata::Analizar(std::string nombre) {
   SetTablaDeTransiciones();
 }
 
+
+/// @brief añaade los simbolos del alfabeto al automata
+/// @param line 
 void Automata::SetSimbolos(std::string line) {
   std::vector<char> simbolos;
   for (auto i = 0; i < line.size(); i++) {
@@ -37,20 +42,29 @@ void Automata::SetSimbolos(std::string line) {
   simbolos_ = simbolos;
 }
 
+
+/// @brief set el numero de nodos del automata
+/// @param line 
 void Automata::SetNumerodeNodos(std::string line) {
   std::stringstream ss(line);
   ss >> nodos_;
 }
 
+/// @brief set el estado inicial del automata
+/// @param line 
 void Automata::SetEstadoArranque(std::string line) {
   std::stringstream ss(line);
   ss >> estado_inicial_;
 }
 
+/// @brief set estados finales del automata
+/// @param member 
 void Automata::SetEstadoFinal(char member) {
   estados_finales_.push_back(member);
 }
 
+/// @brief separa los elementos de la linea
+/// @param line 
 void Automata::SepararElementos(std::string line) {
   std::string elemento;
   std::string elemento2;
@@ -82,6 +96,7 @@ void Automata::SepararElementos(std::string line) {
   estados_no_terminales_.push_back(line[0]);
 }
 
+/// @brief set la tabla de transiciones
 void Automata::SetTablaDeTransiciones() {
   std::vector<std::vector<std::pair<char, char>>> tabla_de_transiciones;
   std::vector<std::string> elementos;
@@ -144,35 +159,97 @@ void Automata::SetTablaDeTransiciones() {
 
 // method to check if the class automata is a DFA
 bool Automata::EsUnDfa() {
+  int contador = 0;
   // std::cout << elementos_.size() << std::endl;
   // std::cout << nodos_ << std::endl;
   if (elementos_.size() != nodos_) {
     return false;
   }
+  // std::cout << "Cantidad de simbolos: " << simbolos_.size() << std::endl;
+
+  for (auto i = 0; i < elementos_.size(); i++) {
+    if (elementos_[i][2] - 48 != simbolos_.size()) {
+      // std::cout << "Cantidad de enlaces: " << elementos_[i][2] << std::endl;
+      contador++;
+      // std::cout <<  "Contador: " << contador << std::endl;
+    }
+  }
+
+  if (contador > 1) {
+    return false;
+  }
+
+  for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
+    int variable = 3;
+    int variable2 = 4;
+    int counter = 0;
+    for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
+      for (auto z = 0; z < tabla_de_transiciones_[i].size(); z++) {
+        if (tabla_de_transiciones_[i][j].first ==
+            tabla_de_transiciones_[i][z].first) {
+          // std::cout << "tabla_de_transiciones[" << i << "][" << j << "].fisrt
+          // "
+          //           << tabla_de_transiciones_[i][j].first << std::endl;
+          // std::cout << "  tabla_de_transiciones[" << i << "][" << z
+          //           << "].fisrt  " << tabla_de_transiciones_[i][z].first
+          //           << std::endl;
+          counter++;
+        }
+      }
+    }
+    // std::cout << "counter: " << counter << std::endl;
+    // std::cout << "elementos[" << i << "][2] " << elementos_[i][2] <<
+    // std::endl;
+    if (counter != elementos_[i][2] - 48) {
+      return false;
+    }
+  }
+
   return true;
 }
 
 void Automata::Mostrar(std::ostream& os) {
-  os << "Automata" << std::endl;
-  os << "Simbolos: ";
-  for (auto i = 0; i < simbolos_.size(); i++) {
-    os << simbolos_[i] << " ";
+  if (EsUnDfa()) {
+    os << "Automata" << std::endl;
+    os << "Simbolos: ";
+    for (auto i = 0; i < simbolos_.size(); i++) {
+      os << simbolos_[i] << " ";
+    }
+    os << std::endl;
+    os << "numero de nodos: " << nodos_ << std::endl;
+    os << "Estado inicial: " << estado_inicial_ << std::endl;
+    os << "Estados finales: ";
+    for (auto i = 0; i < estados_finales_.size(); i++) {
+      os << estados_finales_[i] << " ";
+    }
+    os << std::endl;
+    os << "Nodos no terminales: ";
+    for (auto i = 0; i < estados_no_terminales_.size(); i++) {
+      os << estados_no_terminales_[i] << " ";
+    }
+    os << std::endl;
+    os << "Tabla de transiciones: " << std::endl;
+    // os << "not yet" << std::endl;
+    for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
+      for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
+        os << estados_no_terminales_[i] << " -> ";
+        os << tabla_de_transiciones_[i][j].first << ""
+           << tabla_de_transiciones_[i][j].second << std::endl;
+      }
+      os << std::endl;
+    }
+    os << std::endl;
+    os << "Elementos: " << std::endl;
+    for (auto i = 0; i < elementos_.size(); i++) {
+      os << elementos_[i] << std::endl;
+    }
+    os << std::endl;
+  } else {
+    os << "El automata no es un DFA" << std::endl;
   }
-  os << std::endl;
-  os << "numero de nodos: " << nodos_ << std::endl;
-  os << "Estado inicial: " << estado_inicial_ << std::endl;
-  os << "Estados finales: ";
-  for (auto i = 0; i < estados_finales_.size(); i++) {
-    os << estados_finales_[i] << " ";
-  }
-  os << std::endl;
-  os << "Nodos no terminales: ";
-  for (auto i = 0; i < estados_no_terminales_.size(); i++) {
-    os << estados_no_terminales_[i] << " ";
-  }
-  os << std::endl;
-  os << "Tabla de transiciones: " << std::endl;
-  // os << "not yet" << std::endl;
+}
+
+void Automata::ImprimirFichero(std::ostream& os) {
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
       os << estados_no_terminales_[i] << " -> ";
@@ -181,32 +258,34 @@ void Automata::Mostrar(std::ostream& os) {
     }
     os << std::endl;
   }
-  os << std::endl;
-  os << "Elementos: " << std::endl;
-  for (auto i = 0; i < elementos_.size(); i++) {
-    os << elementos_[i] << std::endl;
-  }
-  os << std::endl;
-  bool es_dfa = EsUnDfa();
-  os << "Es un DFA? " << es_dfa << std::endl;
 }
 
-// // method to check if the string is accepted by the automata
-// bool Automata::CheckString(std::string string) {  // no está probada todavía
-//   int nodo_actual = estado_inicial_ - 48;
-//   int nodo_s = 0;
-//   for (auto i = 0; i < string.size(); i++) {
-//     for (auto j = 0; j < tabla_de_transiciones_[nodo_actual].size(); j++) {
-//       if (string[i] == tabla_de_transiciones_[nodo_actual][j].first) {
-//         nodo_actual = tabla_de_transiciones_[nodo_actual][j].second - 48;
-//         break;
-//       }
-//     }
-//   }
-//   for (auto i = 0; i < elementos_[nodo_actual][1].size(); i++) {
-//     if (elementos_[nodo_actual][1][i] == '1') {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
+// method to check if the string is accepted by the deterministic finite
+// automaton
+bool Automata::CheckString(std::string string) {  // no está probada todavía
+  char estado_actual = estado_inicial_;
+  char estado_siguiente;
+
+  // comprobar que el ultimo estado vistado al comprobar la cadena es un estado
+  // final
+  for (auto i = 0; i < string.size(); i++) {
+    for (auto j = 0; j < tabla_de_transiciones_.size(); j++) {
+      for (auto k = 0; k < tabla_de_transiciones_[j].size(); k++) {
+        if (estado_actual == estados_no_terminales_[j]) {
+          if (string[i] == tabla_de_transiciones_[j][k].first) {
+            estado_siguiente = tabla_de_transiciones_[j][k].second;
+            estado_actual = estado_siguiente;
+          }
+        }
+      }
+    }
+  }
+
+  for (auto i = 0; i < estados_finales_.size(); i++) {
+    if (estado_actual == estados_finales_[i]) {
+      return true;
+    }
+  }
+
+  return false;
+}
