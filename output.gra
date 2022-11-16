@@ -1,4 +1,16 @@
-Gramatica: 
-S -> aS bB 
-B -> aC bC 
-C -> aC bC &C 
+Simbolos: 2
+a
+b
+Nodos no terminales: 3
+S
+B
+C
+Estado inicial: S
+Tabla de transiciones: 7
+S -> aS
+S -> bB
+B -> aC
+B -> bC
+C -> aC
+C -> bC
+C -> &C

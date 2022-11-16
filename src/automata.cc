@@ -297,6 +297,7 @@ bool Automata::CheckString(std::string string) {  // no está probada todavía
 /// @brief Genera una gramatica a partir de un automata
 /// @return
 void Automata::ConvertirDfaEnGramatica(Gramatica& gramatica_) {
-  Gramatica gramatica(tabla_de_transiciones_, estados_no_terminales_);
+  Gramatica gramatica(tabla_de_transiciones_, estados_no_terminales_, simbolos_,
+                      estado_inicial_, estados_finales_, elementos_, nodos_);
   gramatica_ = gramatica;
 }
