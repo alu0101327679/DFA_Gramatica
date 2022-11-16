@@ -142,6 +142,16 @@ void Automata::SetTablaDeTransiciones() {
   tabla_de_transiciones_ = tabla_de_transiciones;
 }
 
+// method to check if the class automata is a DFA
+bool Automata::EsUnDfa() {
+  // std::cout << elementos_.size() << std::endl;
+  // std::cout << nodos_ << std::endl;
+  if (elementos_.size() != nodos_) {
+    return false;
+  }
+  return true;
+}
+
 void Automata::Mostrar(std::ostream& os) {
   os << "Automata" << std::endl;
   os << "Simbolos: ";
@@ -164,7 +174,6 @@ void Automata::Mostrar(std::ostream& os) {
   os << "Tabla de transiciones: " << std::endl;
   // os << "not yet" << std::endl;
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
-    
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
       os << estados_no_terminales_[i] << " -> ";
       os << tabla_de_transiciones_[i][j].first << ""
@@ -172,20 +181,15 @@ void Automata::Mostrar(std::ostream& os) {
     }
     os << std::endl;
   }
-  // os << std::endl;
-  // os << "Elementos: " << std::endl;
-  // for (auto i = 0; i < elementos_.size(); i++) {
-  //   os << elementos_[i] << std::endl;
-  // }
-  // os << std::endl;
+  os << std::endl;
+  os << "Elementos: " << std::endl;
+  for (auto i = 0; i < elementos_.size(); i++) {
+    os << elementos_[i] << std::endl;
+  }
+  os << std::endl;
+  bool es_dfa = EsUnDfa();
+  os << "Es un DFA? " << es_dfa << std::endl;
 }
-
-// method to check if the class automata is a DFA
-bool Automata::EsUnDfa() {
-  if
-}
-
-
 
 // // method to check if the string is accepted by the automata
 // bool Automata::CheckString(std::string string) {  // no está probada todavía
@@ -206,4 +210,3 @@ bool Automata::EsUnDfa() {
 //   }
 //   return false;
 // }
-
