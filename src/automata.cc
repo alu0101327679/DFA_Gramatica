@@ -20,12 +20,11 @@ void Automata::Analizar(std::string nombre) {
   SetSimbolos(lines[0]);
   SetNumerodeNodos(lines[1]);
   SetEstadoArranque(lines[2]);
-  for (auto i = 3; i < nodos_ + 3; i++)
-  {
-  SepararElementos(lines[i]);
+  for (auto i = 3; i < nodos_ + 3; i++) {
+    SepararElementos(lines[i]);
   }
+  // std::cout << "Hola" << std::endl;
   SetTablaDeTransiciones();
-
 }
 
 void Automata::SetSimbolos(std::string line) {
@@ -49,7 +48,6 @@ void Automata::SetEstadoArranque(std::string line) {
 }
 
 void Automata::SepararElementos(std::string line) {
-
   std::string elemento;
   std::string elemento2;
   for (auto i = 0; i < line.size(); i++) {
@@ -63,6 +61,8 @@ void Automata::SepararElementos(std::string line) {
     // std::cout << elemento ;
   }
   // std::cout << std::endl;
+  elemento2 += elemento;
+  // std::cout << "Elemento2: " << elemento2 << std::endl;
   elementos_.push_back(elemento2);
   // for (auto i = 0; i < elementos_.size(); i++) {
   //   std::cout << elementos_[i] << " | " << i <<  std::endl;
@@ -71,26 +71,63 @@ void Automata::SepararElementos(std::string line) {
 }
 
 void Automata::SetTablaDeTransiciones() {
-  std::vector<std::vector<std::pair<int, char>>> tabla_de_transiciones;
-  
+  std::vector<std::vector<std::pair<char, char>>> tabla_de_transiciones;
+  std::vector<std::string> elementos;
+  elementos.resize(elementos_.size());
+  for (auto i = 0; i < elementos_.size(); i++) {
+    elementos[i] = elementos_[i];
+  }
 
-  // std::vector<std::vector<std::pair<int, char>>> tabla_de_transiciones;
-  // std::vector<std::pair<int, char>> transiciones;
-  // std::pair<int, char> transicion;
-  // for (auto i = 0; i < elementos_.size(); i++) {
-  //   for (auto j = 0; j < elementos_[i].size(); j++) {
-  //     if (elementos_[i][j + 1] != ' ') {
-  //       transicion.first = elementos_[i][j] - '0';
-  //       transicion.second = elementos_[ i][j + 1]; // - '0';
-  //     } else {
-  //       transicion.first = elementos_[i][j] - '0';
-  //       transicion.second = elementos_[i][j + 2]; // - '0';
-  //     }
-  //   }
-  // }
+  // std::cout << "nombre del nodo: " << elementos[0][0] << std::endl;
+  // std::cout << "estado final o no: " << elementos[0][1] << std::endl;
+  // std::cout << "numero de transiciones: " << elementos[0][2] << std::endl;
+  // std::cout << "simbolo de la transicion: " << elementos[0][3] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[0][4] << std::endl;
+
+  // std::cout << "simbolo de la transicion: " << elementos[0][3] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[0][4] << std::endl;
+  // std::cout << "simbolo de la transicion: " << elementos[0][5] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[0][6] << std::endl;
+
+  // std::cout << "simbolo de la transicion: " << elementos[1][3] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[1][4] << std::endl;
+  // std::cout << "simbolo de la transicion: " << elementos[1][5] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[1][6] << std::endl;
+
+  // std::cout << "simbolo de la transicion: " << elementos[2][3] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[2][4] << std::endl;
+  // std::cout << "simbolo de la transicion: " << elementos[2][5] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[2][6] << std::endl;
+  // std::cout << "simbolo de la transicion: " << elementos[2][7] << std::endl;
+  // std::cout << "nodo al que va: " << elementos[2][8] << std::endl;
+
+  tabla_de_transiciones.resize(nodos_);
+
+  for (auto i = 0; i < nodos_; i++) {
+    tabla_de_transiciones[i].resize(elementos_[i][2] - 48);
+  }
+
+  for (auto i = 0; i < tabla_de_transiciones.size(); i++) {
+    int variable = 3;
+    int variable2 = 4;
+    for (auto j = 0; j < tabla_de_transiciones[i].size(); j++) {
+      tabla_de_transiciones[i][j].first = elementos_[i][variable];
+      tabla_de_transiciones[i][j].second = elementos_[i][variable2];
+      // std::cout << "transiciones first: " << tabla_de_transiciones[i][j].first
+      //           << std::endl;
+      // std::cout << "transiciones second: " << tabla_de_transiciones[i][j].second
+      //           << std::endl;
+      // std::cout << "---------------------------------------------------------"
+      //           << std::endl;
+      variable += 2;
+      variable2 += 2;
+    }
+  }
+
+  tabla_de_transiciones_ = tabla_de_transiciones;
 }
 
-void Automata::Mostrar(std::ostream& os) { 
+void Automata::Mostrar(std::ostream& os) {
   os << "Automata" << std::endl;
   os << "Simbolos: ";
   for (auto i = 0; i < simbolos_.size(); i++) {
@@ -100,10 +137,12 @@ void Automata::Mostrar(std::ostream& os) {
   os << "numero de nodos: " << nodos_ << std::endl;
   os << "Estado inicial: " << estado_inicial_ << std::endl;
   os << "Tabla de transiciones: " << std::endl;
+  os << "not yet" << std::endl;
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
-      os << tabla_de_transiciones_[i][j].first << " "
-         << tabla_de_transiciones_[i][j].second << " ";
+      os << i << "," << j << ":" << tabla_de_transiciones_[i][j].first << " "
+         << i << "," << j << ":" << tabla_de_transiciones_[i][j].second << " "
+         << std::endl;
     }
     os << std::endl;
   }
@@ -113,4 +152,3 @@ void Automata::Mostrar(std::ostream& os) {
   }
   os << std::endl;
 }
-
