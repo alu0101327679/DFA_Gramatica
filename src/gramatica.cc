@@ -20,22 +20,22 @@ Gramatica::Gramatica(
 Gramatica::~Gramatica() {}
 
 void Gramatica::ImprimirFichero(std::ostream& os) {
-  os << "Simbolos: " << simbolos_.size() << std::endl;
+  os  << simbolos_.size() << std::endl; //<< "Simbolos: "
   for (auto i = 0; i < simbolos_.size(); i++) {
     os << simbolos_[i] << "\n";
   }
-  os << "Nodos no terminales: " << estados_no_terminales_.size() << std::endl;
+  os  << estados_no_terminales_.size() << std::endl; //<< "Nodos no terminales: "
   for (auto i = 0; i < estados_no_terminales_.size(); i++) {
     os << estados_no_terminales_[i] << "\n";
   }
-  os << "Estado inicial: " << estado_inicial_ << std::endl;
+  os  << estado_inicial_ << std::endl; //<< "Estado inicial: "
 
   int size = 0;
   int size2 = 0;
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     size += tabla_de_transiciones_[i].size();
   }
-  os << "Tabla de transiciones: " << size << std::endl;
+  os << size << std::endl; // "Tabla de transiciones: " << 
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
       os << estados_no_terminales_[i] << " -> ";

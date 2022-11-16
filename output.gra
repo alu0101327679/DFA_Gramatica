@@ -1,12 +1,12 @@
-Simbolos: 2
+2
 a
 b
-Nodos no terminales: 3
+3
 S
 B
 C
-Estado inicial: S
-Tabla de transiciones: 7
+S
+7
 S -> aS
 S -> bB
 B -> aC
