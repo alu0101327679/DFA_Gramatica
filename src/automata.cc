@@ -157,7 +157,8 @@ void Automata::SetTablaDeTransiciones() {
   tabla_de_transiciones_ = tabla_de_transiciones;
 }
 
-// method to check if the class automata is a DFA
+/// @brief comprueba si el fichero de entrada representa un DFA
+/// @return 
 bool Automata::EsUnDfa() {
   int contador = 0;
   // std::cout << elementos_.size() << std::endl;
@@ -208,6 +209,8 @@ bool Automata::EsUnDfa() {
   return true;
 }
 
+/// @brief muestra por donde se especifique los datos del automata
+/// @param os 
 void Automata::Mostrar(std::ostream& os) {
   if (EsUnDfa()) {
     os << "Automata" << std::endl;
@@ -249,6 +252,8 @@ void Automata::Mostrar(std::ostream& os) {
   }
 }
 
+/// @brief imprime por fichero la gramatica del automata
+/// @param os 
 void Automata::ImprimirFichero(std::ostream& os) {
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
@@ -260,8 +265,9 @@ void Automata::ImprimirFichero(std::ostream& os) {
   }
 }
 
-// method to check if the string is accepted by the deterministic finite
-// automaton
+/// @brief comprueba si el string dado es aceptado por el automata / gramatica
+/// @param string 
+/// @return 
 bool Automata::CheckString(std::string string) {  // no está probada todavía
   char estado_actual = estado_inicial_;
   char estado_siguiente;
