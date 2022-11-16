@@ -13,6 +13,7 @@ class Automata
     int estado_inicial_;
     // std::vector<int> estados_finales_;
     std::vector<char> simbolos_;
+    std::vector<std::string> elementos_;
     std::vector<std::vector<std::pair<int,char>>> tabla_de_transiciones_;
 
   public:
@@ -25,6 +26,6 @@ class Automata
     void SetNumerodeNodos(std::string);
     void SetEstadoArranque(std::string);
     void SepararElementos(std::string);
-    void SetTablaDeTransiciones(std::vector<std::string>);
+    void SetTablaDeTransiciones();
 
 };
