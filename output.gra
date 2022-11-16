@@ -1,10 +1,4 @@
-S -> aS
-S -> bB
-
-B -> aC
-B -> bC
-
-C -> aC
-C -> bC
-C -> &C
-
+Gramatica: 
+S -> aS bB 
+B -> aC bC 
+C -> aC bC &C 

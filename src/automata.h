@@ -8,6 +8,7 @@
 
 #include "gramatica.h"
 
+/// @brief Clase que representa un automata
 class Automata {
  private:
   int nodos_;            // Numero de nodos
@@ -35,5 +36,5 @@ class Automata {
   void SetTablaDeTransiciones();
   bool CheckString(std::string string);
   bool EsUnDfa();
-  Gramatica ConvertirDfaEnGramatica();
+  void ConvertirDfaEnGramatica(Gramatica& gramatica);
 };

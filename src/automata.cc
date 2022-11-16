@@ -5,7 +5,7 @@ Automata::Automata() {}
 Automata::~Automata() {}
 
 /// @brief Analiza el fichero de entrada y guarda los datos en el automata
-/// @param nombre 
+/// @param nombre
 void Automata::Analizar(std::string nombre) {
   std::vector<std::string> lineas_transiciones;
   std::ifstream file(nombre);
@@ -29,9 +29,8 @@ void Automata::Analizar(std::string nombre) {
   SetTablaDeTransiciones();
 }
 
-
 /// @brief añaade los simbolos del alfabeto al automata
-/// @param line 
+/// @param line
 void Automata::SetSimbolos(std::string line) {
   std::vector<char> simbolos;
   for (auto i = 0; i < line.size(); i++) {
@@ -42,29 +41,28 @@ void Automata::SetSimbolos(std::string line) {
   simbolos_ = simbolos;
 }
 
-
 /// @brief set el numero de nodos del automata
-/// @param line 
+/// @param line
 void Automata::SetNumerodeNodos(std::string line) {
   std::stringstream ss(line);
   ss >> nodos_;
 }
 
 /// @brief set el estado inicial del automata
-/// @param line 
+/// @param line
 void Automata::SetEstadoArranque(std::string line) {
   std::stringstream ss(line);
   ss >> estado_inicial_;
 }
 
 /// @brief set estados finales del automata
-/// @param member 
+/// @param member
 void Automata::SetEstadoFinal(char member) {
   estados_finales_.push_back(member);
 }
 
 /// @brief separa los elementos de la linea
-/// @param line 
+/// @param line
 void Automata::SepararElementos(std::string line) {
   std::string elemento;
   std::string elemento2;
@@ -158,7 +156,7 @@ void Automata::SetTablaDeTransiciones() {
 }
 
 /// @brief comprueba si el fichero de entrada representa un DFA
-/// @return 
+/// @return
 bool Automata::EsUnDfa() {
   int contador = 0;
   // std::cout << elementos_.size() << std::endl;
@@ -210,7 +208,7 @@ bool Automata::EsUnDfa() {
 }
 
 /// @brief muestra por donde se especifique los datos del automata
-/// @param os 
+/// @param os
 void Automata::Mostrar(std::ostream& os) {
   if (EsUnDfa()) {
     os << "Automata" << std::endl;
@@ -253,7 +251,7 @@ void Automata::Mostrar(std::ostream& os) {
 }
 
 /// @brief imprime por fichero la gramatica del automata
-/// @param os 
+/// @param os
 void Automata::ImprimirFichero(std::ostream& os) {
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
@@ -266,8 +264,8 @@ void Automata::ImprimirFichero(std::ostream& os) {
 }
 
 /// @brief comprueba si el string dado es aceptado por el automata / gramatica
-/// @param string 
-/// @return 
+/// @param string
+/// @return
 bool Automata::CheckString(std::string string) {  // no está probada todavía
   char estado_actual = estado_inicial_;
   char estado_siguiente;
@@ -294,4 +292,11 @@ bool Automata::CheckString(std::string string) {  // no está probada todavía
   }
 
   return false;
+}
+
+/// @brief Genera una gramatica a partir de un automata
+/// @return
+void Automata::ConvertirDfaEnGramatica(Gramatica& gramatica_) {
+  Gramatica gramatica(tabla_de_transiciones_, estados_no_terminales_);
+  gramatica_ = gramatica;
 }
