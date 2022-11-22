@@ -19,28 +19,28 @@ int main(int argc, char *argv[]) {
   automata.Analizar(argv[1]);
   // automata.ImprimirFichero(off_file);
   automata.ConvertirDfaEnGramatica(gramatica);
-  gramatica.ImprimirFichero(off_file);
+//   gramatica.ImprimirFichero(off_file);
   off_file.close();
-  // automata.Mostrar(std::cout);
+  automata.Mostrar(std::cout);
 
   // esta debe ser aceptada
-  automata.CheckString("abb")
-      ? std::cout << "Cadena aceptada ----------" << std::endl
-      : std::cout << "Cadena no aceptada ----------" << std::endl;
+//   automata.CheckString("abb")
+//       ? std::cout << "Cadena aceptada ----------" << std::endl
+//       : std::cout << "Cadena no aceptada ----------" << std::endl;
 
-  // esta no debe ser aceptada
-  automata.CheckString("a")
-      ? std::cout << "Cadena aceptada ----------" << std::endl
-      : std::cout << "Cadena no aceptada ----------" << std::endl;
+//   // esta no debe ser aceptada
+//   automata.CheckString("a")
+//       ? std::cout << "Cadena aceptada ----------" << std::endl
+//       : std::cout << "Cadena no aceptada ----------" << std::endl;
 
-  // esta debe ser aceptada
-  automata.CheckString("bb")
-      ? std::cout << "Cadena aceptada ----------" << std::endl
-      : std::cout << "Cadena no aceptada ----------" << std::endl;
+//   // esta debe ser aceptada
+//   automata.CheckString("bb")
+//       ? std::cout << "Cadena aceptada ----------" << std::endl
+//       : std::cout << "Cadena no aceptada ----------" << std::endl;
 
-  // esta debe ser aceptada
-  automata.CheckString("abbaaaaaab")
-      ? std::cout << "Cadena aceptada ----------" << std::endl
-      : std::cout << "Cadena no aceptada ----------" << std::endl;
+//   // esta debe ser aceptada
+//   automata.CheckString("abbaaaaaab")
+//       ? std::cout << "Cadena aceptada ----------" << std::endl
+//       : std::cout << "Cadena no aceptada ----------" << std::endl;
 
 }
