@@ -196,12 +196,13 @@ void Gramatica::FormaNormalDeChomsky() {
         valor_original = tabla_de_producciones_[i][j];
         // guardar los 2 ultimos valor de un string en otro string
         std::string value_holder2 = "";
-        for (auto k = 0; k < tabla_de_producciones_[i][j].size(); k++) {
-          if (tabla_de_producciones_[i][j][k] == estados_terminales_[i]) {
-            value_holder2 += tabla_de_producciones_[i][j][k];
-          }
-        }
-
+        // for (auto k = 0; k < tabla_de_producciones_[i][j].size(); k++) {
+        //   if (tabla_de_producciones_[i][j][k] == estados_terminales_[i]) {
+        //     value_holder2 += tabla_de_producciones_[i][j][k];
+        //     goto next;
+        //   }
+        // }
+        // next:
         anadir_en_tabla.push_back(value_holder2);
         tabla_de_producciones_.push_back(anadir_en_tabla);
         anadir_en_tabla.clear();
