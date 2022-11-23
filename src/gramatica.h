@@ -18,7 +18,7 @@ class Gramatica {
   std::vector<char> estados_no_terminales_;  // guarda los estados no terminales
   std::vector<char> estados_terminales_;     // guarda los estados terminales
   std::vector<std::vector<std::string>>
-      tabla_de_transiciones_;  // Guarda la tabla de transiciones
+      tabla_de_producciones_;  // Guarda la tabla de transiciones
 
  public:
   Gramatica();
@@ -33,4 +33,8 @@ class Gramatica {
   bool Inutiles();
   bool Vacias();
   bool Unitarias();
+  void AddProcuccion(char, char);
+  void RemplazarTerminal(std::vector<std::string>&, char);
+  void RemplazarNoTerminales(std::vector<std::string>& );
+  void AddNoTerminales(int);
 };

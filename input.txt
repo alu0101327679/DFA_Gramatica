@@ -1,3 +1,3 @@
-S -> aXbX | abX | aXb | ab
+S -> aXbX | baX | aXb | ab
 X -> aY | bY | a | b
 Y -> aY | bY | a | b | c

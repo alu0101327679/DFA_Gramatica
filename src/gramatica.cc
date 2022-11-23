@@ -103,11 +103,11 @@ void Gramatica::LimpiarLinea(std::string line) {
 /// @brief muestra por donde se especifique los datos del gramatica
 /// @param os
 void Gramatica::Mostrar(std::ostream& os) {
-  os << "Tabla de transiciones: " << tabla_de_transiciones_.size() << std::endl;
-  for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
-    for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
+  os << "Tabla de transiciones: " << tabla_de_producciones_.size() << std::endl;
+  for (auto i = 0; i < tabla_de_producciones_.size(); i++) {
+    for (auto j = 0; j < tabla_de_producciones_[i].size(); j++) {
       os << estados_no_terminales_[i] << " -> ";
-      os << tabla_de_transiciones_[i][j] << std::endl;
+      os << tabla_de_producciones_[i][j] << std::endl;
     }
     os << std::endl;
   }
@@ -157,7 +157,7 @@ void Gramatica::SetTablaDeTransiciones() {
     tabla.push_back(falsa_tabla);
     falsa_tabla.clear();
   }
-  tabla_de_transiciones_ = tabla;
+  tabla_de_producciones_ = tabla;
 }
 
 void Gramatica::FormaNormalDeChomsky() {
@@ -171,10 +171,10 @@ void Gramatica::FormaNormalDeChomsky() {
   std::string valor_original = "";
   std::vector<std::string> anadir_en_tabla;
 
-  for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
-    for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
-      if (tabla_de_transiciones_[i][j].size() > 2) {
-        // std::cout << tabla_de_transiciones_[i][j] << std::endl;
+  for (auto i = 0; i < tabla_de_producciones_.size(); i++) {
+    for (auto j = 0; j < tabla_de_producciones_[i].size(); j++) {
+      if (tabla_de_producciones_[i][j].size() > 2) {
+        // std::cout << tabla_de_producciones_[i][j] << std::endl;
         char random = rand() % 26 + 65;
         for (auto z = 0; z < estados_no_terminales_.size(); z++) {
           if (random == estados_no_terminales_[z]) {
@@ -193,29 +193,22 @@ void Gramatica::FormaNormalDeChomsky() {
           }
         }  // borra los elementos de todos los estados no terminales
 
-        // tabla_de_transiciones_.push_back();
-
-        valor_original = tabla_de_transiciones_[i][j];
+        valor_original = tabla_de_producciones_[i][j];
         // guardar los 2 ultimos valor de un string en otro string
         std::string value_holder2 = "";
-        value_holder2 += valor_original[valor_original.size() - 2];
-        value_holder2 += valor_original[valor_original.size() - 1];
-        std::cout << "Test_ " << value_holder2 << std::endl;
-        std::cout << "jeje: " << tabla_de_transiciones_.size() << std::endl;
+        for (auto k = 0; k < tabla_de_producciones_[i][j].size(); k++) {
+          if (tabla_de_producciones_[i][j][k] == estados_terminales_[i]) {
+            value_holder2 += tabla_de_producciones_[i][j][k];
+          }
+        }
+
         anadir_en_tabla.push_back(value_holder2);
-        tabla_de_transiciones_.push_back(anadir_en_tabla);
+        tabla_de_producciones_.push_back(anadir_en_tabla);
         anadir_en_tabla.clear();
         value_holder2 = "";
         valor_original = "";
-        // valor_original.pop_back();
-        // valor_original.pop_back();
-        // valor_original.push_back(random);
-        // tabla_de_transiciones_[i][j] = valor_original;
-        // tabla_de_transiciones_[tabla_de_transiciones_.size() - 1].push_back(
-        //     valor_original);  // se sustituye en todas las ocurrencias
-        // de la tabla de transiciones se anade a la tabla de transiciones el
-        // nuevo estado no terminal
-      } else if (tabla_de_transiciones_[i][j].size() == 2) {  // =2 carat
+
+      } else if (tabla_de_producciones_[i][j].size() == 2) {  // =2 carat
         // se comprueba si los 2 caracteres son no terminales no se hace nada
         // si uno de los 2 caracteres es terminal se crea un estado no terminal
         // que se le asigna a los 2 caracteres se sustituye en todas las
@@ -225,7 +218,77 @@ void Gramatica::FormaNormalDeChomsky() {
       }  // si tiene un caracter se supone que solo puede estar en la raiz
     }
   }
+  // Inutiles();
+  // Vacias();
+  // Unitarias();
+  // Inutiles();
+  // char terminal = ' ';
+  // bool insertar = true;
+  // int interacciones = 0;
+  // std::string valor_original = "";
+  // std::vector<std::string> anadir_en_tabla;
+
+  // // para cada valor terminal crea un nuevo estado no terminal y lo sustituye
+  // en
+  // // la tabla de transiciones
+
+  // for (auto j = 0; j < tabla_de_producciones_.size(); j++) {
+  //   for (auto k = 0; k < tabla_de_producciones_[j].size(); k++) {
+  //     for (auto l = 0; l < tabla_de_producciones_[j][k].size(); l++) {
+  //       if (tabla_de_producciones_[j][k].size() >= 2) {
+  //         for (auto i = 0; i < tabla_de_producciones_[j][k].size(); i++) {
+  //           if (tabla_de_producciones_[j][k][l] == estados_terminales_[i]) {
+  //             char random = rand() % 26 + 65;
+  //             AddProcuccion(estados_terminales_[i], random);
+  //             RemplazarTerminal(tabla_de_producciones_[j], random);
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  // for (auto j = 0; j < tabla_de_producciones_.size(); j++) {
+  //   for (auto k = 0; k < tabla_de_producciones_[j].size(); k++) {
+  //     for (auto l = 0; l < tabla_de_producciones_[j][k].size(); l++) {
+  //       if (tabla_de_producciones_[j][k].size() >= 3) {
+  //         AddNoTerminales(tabla_de_producciones_[j].size());
+  //         RemplazarNoTerminales(tabla_de_producciones_[j]);
+  //       }
+  //     }
+  //   }
+  // }
 }
+
+// void Gramatica::AddProcuccion(char estado_terminal, char random) {
+// //añadir random a los estados no terminales, evitando que se repitan y
+// borrando los de todos los estados no terminales
+//   bool insertar = true;
+//   for (auto i = 0; i < estados_no_terminales_.size(); i++) {
+//     if (estados_no_terminales_[i] == random) {
+//       insertar = false;
+//     }
+//   }
+//   if (insertar) {
+//     estados_no_terminales_.push_back(random);
+//   }
+
+//   // añadir el estado terminal a la tabla de transiciones
+//   std::string estado_terminal_string = "";
+//   estado_terminal_string += estado_terminal;
+//   std::vector<std::string> tabla;
+//   tabla.push_back(estado_terminal_string);
+//   tabla_de_producciones_.push_back(tabla);
+
+// }
+
+// void Gramatica::RemplazarTerminal(std::vector<std::string>&
+// estados_terminales,
+//                                   char random) {}
+
+// void Gramatica::AddNoTerminales(int size) {}
+
+// void Gramatica::RemplazarNoTerminales(std::vector<std::string>& estados) {}
 
 bool Gramatica::Inutiles() { return true; }
 
