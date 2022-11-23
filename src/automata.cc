@@ -51,6 +51,7 @@ void Automata::SepararNoTerminales(std::string line) {
 
 void Automata::SepararSiTerminales() {
   bool ignorar = false;
+  bool ignorar2 = false;
   for (auto i = 0; i < elementos_.size(); i++) {
     for (auto j = 0; j < elementos_[i].size(); j++) {
       for (auto k = 0; k < estados_no_terminales_.size(); k++) {
@@ -65,9 +66,22 @@ void Automata::SepararSiTerminales() {
           std::cout << ignorar << std::endl;
         }
       }
-    next:
-      if (!ignorar) {
-        estados_terminales_.push_back(elementos_[i][j]);
+      next:
+      if (!ignorar) { //simbolos terminales repetidos
+
+        //evitar que se repitan los simbolos terminales
+        for (auto l = 0; l < estados_terminales_.size(); l++) {
+          if (elementos_[i][j] == estados_terminales_[l]) {
+            ignorar2 = true;
+            goto next2;
+          } else {
+            ignorar2 = false;
+          }
+        }
+        next2:
+        if (!ignorar2) {
+          estados_terminales_.push_back(elementos_[i][j]);
+        }
       }
     }
   }
