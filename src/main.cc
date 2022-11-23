@@ -3,22 +3,22 @@
 #include <string>
 #include <vector>
 
-#include "automata.h"
+#include "gramatica.h"
 
 // Shift + Alt + F
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-  Automata automata;
+  Gramatica gramatica;
   std::ofstream off_file(argv[2]);
   if (!off_file.is_open()) {
     std::cout << "Error al abrir el archivo" << std::endl;
     return 1;
   }
-  automata.Analizar(argv[1]);
-  automata.Mostrar(std::cout);
-  //automata.Mostrar(off_file);
+  gramatica.Analizar(argv[1]);
+  gramatica.Mostrar(std::cout);
+  //gramatica.Mostrar(off_file);
   off_file.close();
 
 }

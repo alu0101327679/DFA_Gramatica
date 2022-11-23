@@ -6,26 +6,31 @@
 #include <string>
 #include <vector>
 
-/// @brief Clase que representa una gramatica
+/// @brief Clase que representa un gramatica
 class Gramatica {
  private:
-  int nodos_;            // Numero de nodos
-  char estado_inicial_;  // Estado inicial
-  std::vector<char> estados_finales_;
+  char estado_inicial_;         // Estado inicial
   std::vector<char> simbolos_;  // guarda los simbolos del alfabeto
   std::vector<std::string>
       elementos_;  // Guerda las lineas del fichero de entrada
-  std::vector<std::vector<std::pair<char, char>>>
+  std::vector<char>
+      todos_estados_no_terminales_;  // guarda 25 posibles estados no terminales
+  std::vector<char> estados_no_terminales_;  // guarda los estados no terminales
+  std::vector<char> estados_terminales_;     // guarda los estados terminales
+  std::vector<std::vector<std::string>>
       tabla_de_transiciones_;  // Guarda la tabla de transiciones
-  std::vector<char> todos_estados_no_terminales;
 
  public:
   Gramatica();
-  Gramatica(
-      std::vector<std::vector<std::pair<char, char>>> tabla_de_transiciones,
-      std::vector<char> estados_no_terminales, std::vector<char> simbolos_,
-      char estado_inicial, std::vector<char> estados_finales,
-      std::vector<std::string> elementos, int nodos);
   ~Gramatica();
-  void ImprimirFichero(std::ostream& os);
+  void Analizar(std::string);
+  void Mostrar(std::ostream& os);
+  void SetTablaDeTransiciones();
+  void SepararElementos(std::string);
+  void SepararNoTerminales(std::string);
+  void SepararSiTerminales();
+  void FormaNormalDeChomsky();
+  bool Inutiles();
+  bool Vacias();
+  bool Unitarias();
 };
