@@ -6,8 +6,6 @@
 #include <string>
 #include <vector>
 
-
-
 /// @brief Clase que representa un automata
 class Automata {
  private:
@@ -19,8 +17,8 @@ class Automata {
       todos_estados_no_terminales_;  // guarda 25 posibles estados no terminales
   std::vector<char> estados_no_terminales_;  // guarda los estados no terminales
   std::vector<char> estados_terminales_;     // guarda los estados terminales
-  std::vector<std::vector<std::pair<char, char>>>
-    tabla_de_transiciones_;  // Guarda la tabla de transiciones
+  std::vector<std::vector<std::string>>
+      tabla_de_transiciones_;  // Guarda la tabla de transiciones
 
  public:
   Automata();
@@ -30,5 +28,5 @@ class Automata {
   void SetTablaDeTransiciones();
   void SepararElementos(std::string);
   void SepararNoTerminales(std::string);
-  void SepararSiTerminales();    
+  void SepararSiTerminales();
 };

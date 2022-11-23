@@ -17,7 +17,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
   automata.Analizar(argv[1]);
-  off_file.close();
   automata.Mostrar(std::cout);
+  //automata.Mostrar(off_file);
+  off_file.close();
 
 }

@@ -80,7 +80,6 @@ void Automata::SepararSiTerminales() {
       }
     }
   }
-  std::cout << std::endl;
 }
 
 /// @brief separa los elementos de la linea
@@ -103,13 +102,11 @@ void Automata::SepararElementos(std::string line) {
 /// @brief muestra por donde se especifique los datos del automata
 /// @param os
 void Automata::Mostrar(std::ostream& os) {
-
-    os << "Tabla de transiciones: " << std::endl;
+  os << "Tabla de transiciones: " << std::endl;
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
       os << estados_no_terminales_[i] << " -> ";
-      os << tabla_de_transiciones_[i][j].first << ""
-         << tabla_de_transiciones_[i][j].second << std::endl;
+      os << tabla_de_transiciones_[i][j] << std::endl;
     }
     os << std::endl;
   }
@@ -132,35 +129,26 @@ void Automata::Mostrar(std::ostream& os) {
     os << elementos_[i] << std::endl;
   }
   os << std::endl;
-
 }
 
-/// @brief set la tabla de transiciones
+/// @brief set la tabla de transiciones separando los elementos con una |
 void Automata::SetTablaDeTransiciones() {
-  std::vector<std::vector<std::pair<char, char>>> tabla_de_transiciones;
-  std::vector<std::string> elementos;
-  elementos.resize(elementos_.size());
+  std::string elemento = "";
+  std::vector<std::string> falsa_tabla;
+  std::vector<std::vector<std::string>> tabla;
   for (auto i = 0; i < elementos_.size(); i++) {
-    elementos[i] = elementos_[i];
-  }
-
-  tabla_de_transiciones.resize(elementos_.size());
-
-  for (auto i = 0; i < elementos.size(); i++) {
-    tabla_de_transiciones[i].resize(elementos[i][2] - 48);
-  }
-
-  for (auto i = 0; i < tabla_de_transiciones.size(); i++) {
-    int variable = 3;
-    int variable2 = 4;
-    for (auto j = 0; j < tabla_de_transiciones[i].size(); j++) {
-      tabla_de_transiciones[i][j].first = elementos[i][variable];
-      tabla_de_transiciones[i][j].second = elementos[i][variable2];
-
-      variable += 2;
-      variable2 += 2;
+    for (auto j = 1; j <= elementos_[i].size(); j++) {
+      if (elementos_[i][j] != '|') {
+        elemento += elementos_[i][j];
+      } else {
+        falsa_tabla.push_back(elemento);
+        elemento = "";
+      }
     }
+    falsa_tabla.push_back(elemento);
+    elemento = "";
+    tabla.push_back(falsa_tabla);
+    falsa_tabla.clear();
   }
-
-  tabla_de_transiciones_ = tabla_de_transiciones;
+  tabla_de_transiciones_ = tabla;
 }
