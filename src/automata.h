@@ -26,5 +26,6 @@ class Automata {
   void Analizar(std::string);
   void Mostrar(std::ostream& os);
   void SepararElementos(std::string);
-  void SepararEstados(std::string);
+  void SepararNoTerminales(std::string);
+  void SepararSiTerminales();    
 };

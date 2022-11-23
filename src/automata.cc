@@ -29,32 +29,49 @@ void Automata::Analizar(std::string nombre) {
   }
 
   for (auto i = 0; i < lines.size(); i++) {
-    SepararEstados(lines[i]);
+    SepararNoTerminales(lines[i]);
   }
+  SepararSiTerminales();
   file.close();
 }
 
-void Automata::SepararEstados(std::string line) {
+void Automata::SepararNoTerminales(std::string line) {
   for (auto i = 0; i < line.size(); i++) {
     for (auto j = 0; j < todos_estados_no_terminales_.size(); j++) {
-      if (line[i] == todos_estados_no_terminales_[j]) { //comprueba si el estado
-                                                       //no terminal esta en la
-                                                       //linea
+      if (line[i] == todos_estados_no_terminales_[j]) {  // comprueba si el
+                                                         // estado no terminal
+                                                         // esta en la linea
         estados_no_terminales_.push_back(todos_estados_no_terminales_[j]);
-        todos_estados_no_terminales_.erase(todos_estados_no_terminales_.begin() + j);
+        todos_estados_no_terminales_.erase(
+            todos_estados_no_terminales_.begin() + j);
       }
     }
   }
+}
 
-
-  for (auto i = 0; i < line.size(); i++) {
-    for (auto j = 0; j < estados_no_terminales_.size(); j++) {
-      if (line[i] == estados_no_terminales_[j]) { 
-          //me quedé aqui
+void Automata::SepararSiTerminales() {
+  bool ignorar = false;
+  for (auto i = 0; i < elementos_.size(); i++) {
+    for (auto j = 0; j < elementos_[i].size(); j++) {
+      for (auto k = 0; k < estados_no_terminales_.size(); k++) {
+        std::cout << "Test_ " << elementos_[i][j] << " "
+                  << estados_no_terminales_[k] << " ";
+        if (elementos_[i][j] == estados_no_terminales_[k]) {
+          ignorar = true;
+          std::cout << ignorar << std::endl;
+          goto next;
+        } else {
+          ignorar = false;
+          std::cout << ignorar << std::endl;
+        }
+      }
+    next:
+      if (!ignorar) {
+        estados_terminales_.push_back(elementos_[i][j]);
       }
     }
   }
-
+  std::cout << std::endl;
 }
 
 /// @brief separa los elementos de la linea
@@ -78,8 +95,13 @@ void Automata::SepararElementos(std::string line) {
 /// @brief muestra por donde se especifique los datos del automata
 /// @param os
 void Automata::Mostrar(std::ostream& os) {
+  os << "Esatdos terminales: ";
+  for (auto i = 0; i < estados_terminales_.size(); i++) {
+    os << estados_terminales_[i] << " ";
+  }
+  os << std::endl;
 
-  os << "Nodos no terminales: ";
+  os << "Estados no terminales: ";
   for (auto i = 0; i < estados_no_terminales_.size(); i++) {
     os << estados_no_terminales_[i] << " ";
   }
@@ -90,7 +112,4 @@ void Automata::Mostrar(std::ostream& os) {
     os << elementos_[i] << std::endl;
   }
   os << std::endl;
-
-
-  os << "Test_ : " << elementos_[0][0] << std::endl;
 }
