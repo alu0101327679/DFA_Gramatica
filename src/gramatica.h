@@ -26,7 +26,7 @@ class Gramatica {
   void Analizar(std::string);
   void Mostrar(std::ostream& os);
   void SetTablaDeTransiciones();
-  void SepararElementos(std::string);
+  void LimpiarLinea(std::string);
   void SepararNoTerminales(std::string);
   void SepararSiTerminales();
   void FormaNormalDeChomsky();
