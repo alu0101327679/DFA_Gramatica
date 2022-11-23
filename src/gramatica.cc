@@ -47,7 +47,7 @@ void Gramatica::ImprimirFichero(std::ostream& os) {
   // os << "---------------------" << std::endl;
 
   // os << std::endl;
-  // os << "numero de nodos: " << nodos_ << std::endl;
+  // os << "numero de nodos: " << elementos_.size() << std::endl;
 
   // os << "Estados finales: ";
   // for (auto i = 0; i < estados_finales_.size(); i++) {

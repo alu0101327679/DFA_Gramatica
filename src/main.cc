@@ -4,14 +4,13 @@
 #include <vector>
 
 #include "automata.h"
-// #include "gramatica.h"
+
 // Shift + Alt + F
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
   Automata automata;
-  Gramatica gramatica;
   std::ofstream off_file(argv[2]);
   if (!off_file.is_open()) {
     std::cout << "Error al abrir el archivo" << std::endl;
