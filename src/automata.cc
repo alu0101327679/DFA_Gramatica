@@ -45,6 +45,16 @@ void Automata::SepararEstados(std::string line) {
       }
     }
   }
+
+
+  for (auto i = 0; i < line.size(); i++) {
+    for (auto j = 0; j < estados_no_terminales_.size(); j++) {
+      if (line[i] == estados_no_terminales_[j]) { 
+          //me quedé aqui
+      }
+    }
+  }
+
 }
 
 /// @brief separa los elementos de la linea
@@ -80,4 +90,7 @@ void Automata::Mostrar(std::ostream& os) {
     os << elementos_[i] << std::endl;
   }
   os << std::endl;
+
+
+  os << "Test_ : " << elementos_[0][0] << std::endl;
 }
