@@ -1,4 +1,3 @@
-
 #include "gramatica.h"
 
 Gramatica::Gramatica() {}
@@ -9,7 +8,7 @@ Gramatica::Gramatica(
     char estado_inicial, std::vector<char> estados_finales,
     std::vector<std::string> elementos, int nodos) {
   tabla_de_transiciones_ = tabla_de_transiciones;
-  estados_no_terminales_ = estados_no_terminales;
+  todos_estados_no_terminales = estados_no_terminales;
   simbolos_ = simbolos;
   estado_inicial_ = estado_inicial;
   estados_finales_ = estados_finales;
@@ -20,25 +19,26 @@ Gramatica::Gramatica(
 Gramatica::~Gramatica() {}
 
 void Gramatica::ImprimirFichero(std::ostream& os) {
-  os  << simbolos_.size() << std::endl; //<< "Simbolos: "
+  os << simbolos_.size() << std::endl;  //<< "Simbolos: "
   for (auto i = 0; i < simbolos_.size(); i++) {
     os << simbolos_[i] << "\n";
   }
-  os  << estados_no_terminales_.size() << std::endl; //<< "Nodos no terminales: "
-  for (auto i = 0; i < estados_no_terminales_.size(); i++) {
-    os << estados_no_terminales_[i] << "\n";
+  os << todos_estados_no_terminales.size()
+     << std::endl;  //<< "Nodos no terminales: "
+  for (auto i = 0; i < todos_estados_no_terminales.size(); i++) {
+    os << todos_estados_no_terminales[i] << "\n";
   }
-  os  << estado_inicial_ << std::endl; //<< "Estado inicial: "
+  os << estado_inicial_ << std::endl;  //<< "Estado inicial: "
 
   int size = 0;
   int size2 = 0;
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     size += tabla_de_transiciones_[i].size();
   }
-  os << size << std::endl; // "Tabla de transiciones: " << 
+  os << size << std::endl;  // "Tabla de transiciones: " <<
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
-      os << estados_no_terminales_[i] << " -> ";
+      os << todos_estados_no_terminales[i] << " -> ";
       os << tabla_de_transiciones_[i][j].first << ""
          << tabla_de_transiciones_[i][j].second << std::endl;
     }

@@ -5,6 +5,7 @@
 
 #include "automata.h"
 // #include "gramatica.h"
+// Shift + Alt + F
 
 using namespace std;
 
@@ -18,8 +19,8 @@ int main(int argc, char *argv[]) {
   }
   automata.Analizar(argv[1]);
   // automata.ImprimirFichero(off_file);
-  automata.ConvertirDfaEnGramatica(gramatica);
-//   gramatica.ImprimirFichero(off_file);
+  //automata.ConvertirDfaEnGramatica(gramatica);
+  //   gramatica.ImprimirFichero(off_file);
   off_file.close();
   automata.Mostrar(std::cout);
 

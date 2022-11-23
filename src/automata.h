@@ -11,30 +11,20 @@
 /// @brief Clase que representa un automata
 class Automata {
  private:
-  int nodos_;            // Numero de nodos
-  char estado_inicial_;  // Estado inicial
-  std::vector<char> estados_finales_;
+  char estado_inicial_;         // Estado inicial
   std::vector<char> simbolos_;  // guarda los simbolos del alfabeto
   std::vector<std::string>
       elementos_;  // Guerda las lineas del fichero de entrada
-  std::vector<std::vector<std::pair<char, char>>>
-      tabla_de_transiciones_;  // Guarda la tabla de transiciones
-  std::vector<char> estados_no_terminales_;
+  std::vector<char>
+      todos_estados_no_terminales_;  // guarda 25 posibles estados no terminales
+  std::vector<char> estados_no_terminales_;  // guarda los estados no terminales
+  std::vector<char> estados_terminales_;     // guarda los estados terminales
 
  public:
   Automata();
   ~Automata();
   void Analizar(std::string);
   void Mostrar(std::ostream& os);
-  void ImprimirFichero(std::ostream& os);
-  std::vector<char> Split(std::string);
-  void SetSimbolos(std::string);
-  void SetNumerodeNodos(std::string);
-  void SetEstadoArranque(std::string);
-  void SetEstadoFinal(char);
   void SepararElementos(std::string);
-  void SetTablaDeTransiciones();
-  bool CheckString(std::string string);
-  bool EsUnDfa();
-  void ConvertirDfaEnGramatica(Gramatica& gramatica);
+  void SepararEstados(std::string);
 };

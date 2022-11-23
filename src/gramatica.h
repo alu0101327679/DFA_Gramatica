@@ -17,7 +17,7 @@ class Gramatica {
       elementos_;  // Guerda las lineas del fichero de entrada
   std::vector<std::vector<std::pair<char, char>>>
       tabla_de_transiciones_;  // Guarda la tabla de transiciones
-  std::vector<char> estados_no_terminales_;
+  std::vector<char> todos_estados_no_terminales;
 
  public:
   Gramatica();
