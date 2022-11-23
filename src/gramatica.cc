@@ -113,7 +113,7 @@ void Gramatica::Mostrar(std::ostream& os) {
   }
   os << std::endl;
 
-  os << "Esatdos terminales: ";
+  os << "Estados terminales: ";
   for (auto i = 0; i < estados_terminales_.size(); i++) {
     os << estados_terminales_[i] << " ";
   }
@@ -169,6 +169,7 @@ void Gramatica::FormaNormalDeChomsky() {
   bool insertar = true;
   int interacciones = 0;
   std::string valor_original = "";
+  std::vector<std::string> anadir_en_tabla;
 
   for (auto i = 0; i < tabla_de_transiciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_transiciones_[i].size(); j++) {
@@ -190,29 +191,35 @@ void Gramatica::FormaNormalDeChomsky() {
             todos_estados_no_terminales_.erase(
                 todos_estados_no_terminales_.begin() + z);
           }
-        } //borra los elementos de todos los estados no terminales
+        }  // borra los elementos de todos los estados no terminales
 
+        // tabla_de_transiciones_.push_back();
 
-        // valor_original = tabla_de_transiciones_[i][j];
-        // // guardar los 2 ultimos valor de un string en otro string
-        // std::string value_holder2 = "";
-        // value_holder2 += valor_original[valor_original.size() - 2];
-        // value_holder2 += valor_original[valor_original.size() - 1];
-        // std::cout << "Test_ " << value_holder2 << std::endl;
-
+        valor_original = tabla_de_transiciones_[i][j];
+        // guardar los 2 ultimos valor de un string en otro string
+        std::string value_holder2 = "";
+        value_holder2 += valor_original[valor_original.size() - 2];
+        value_holder2 += valor_original[valor_original.size() - 1];
+        std::cout << "Test_ " << value_holder2 << std::endl;
+        std::cout << "jeje: " << tabla_de_transiciones_.size() << std::endl;
+        anadir_en_tabla.push_back(value_holder2);
+        tabla_de_transiciones_.push_back(anadir_en_tabla);
+        anadir_en_tabla.clear();
+        value_holder2 = "";
+        valor_original = "";
         // valor_original.pop_back();
         // valor_original.pop_back();
         // valor_original.push_back(random);
         // tabla_de_transiciones_[i][j] = valor_original;
-        // tabla_de_transiciones_[tabla_de_transiciones_.size() -
-        // 1].push_back(valor_original); //se sustituye en todas las ocurrencias
-        // de la tabla de transiciones se añade a la tabla de transiciones el
+        // tabla_de_transiciones_[tabla_de_transiciones_.size() - 1].push_back(
+        //     valor_original);  // se sustituye en todas las ocurrencias
+        // de la tabla de transiciones se anade a la tabla de transiciones el
         // nuevo estado no terminal
       } else if (tabla_de_transiciones_[i][j].size() == 2) {  // =2 carat
         // se comprueba si los 2 caracteres son no terminales no se hace nada
         // si uno de los 2 caracteres es terminal se crea un estado no terminal
         // que se le asigna a los 2 caracteres se sustituye en todas las
-        // ocurrencias de la tabla de transiciones se añade a la tabla de
+        // ocurrencias de la tabla de transiciones se anade a la tabla de
         // transiciones el nuevo estado no terminal
 
       }  // si tiene un caracter se supone que solo puede estar en la raiz
