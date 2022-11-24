@@ -173,50 +173,42 @@ void Gramatica::FormaNormalDeChomsky() {
 
   for (auto i = 0; i < tabla_de_producciones_.size(); i++) {
     for (auto j = 0; j < tabla_de_producciones_[i].size(); j++) {
-      if (tabla_de_producciones_[i][j].size() > 2) {
-        // std::cout << tabla_de_producciones_[i][j] << std::endl;
-        char random = rand() % 26 + 65;
-        for (auto z = 0; z < estados_no_terminales_.size(); z++) {
-          if (random == estados_no_terminales_[z]) {
-            insertar = false;
+      for (auto k = 0; k < tabla_de_producciones_[i][j].size(); k++) {
+        if (tabla_de_producciones_[i][j].size() >= 2) {  // tamaño del string
+          // std::cout << tabla_de_producciones_[i][j] << std::endl;
+          char random = rand() % 26 + 65;
+          for (auto z = 0; z < estados_no_terminales_.size();
+               z++) {  // no insertar si repetido
+            if (random == estados_no_terminales_[z]) {
+              insertar = false;
+            }
+            interacciones++;
           }
-          interacciones++;
-        }
-        if (insertar) {
-          estados_no_terminales_.push_back(random);
-        }
-
-        for (auto z = 0; z < todos_estados_no_terminales_.size(); z++) {
-          if (random == todos_estados_no_terminales_[z]) {
-            todos_estados_no_terminales_.erase(
-                todos_estados_no_terminales_.begin() + z);
+          if (insertar) {  // insertar si es true
+            estados_no_terminales_.push_back(random);
           }
-        }  // borra los elementos de todos los estados no terminales
 
-        valor_original = tabla_de_producciones_[i][j];
-        // guardar los 2 ultimos valor de un string en otro string
-        std::string value_holder2 = "";
-        // for (auto k = 0; k < tabla_de_producciones_[i][j].size(); k++) {
-        //   if (tabla_de_producciones_[i][j][k] == estados_terminales_[i]) {
-        //     value_holder2 += tabla_de_producciones_[i][j][k];
-        //     goto next;
-        //   }
-        // }
-        // next:
-        anadir_en_tabla.push_back(value_holder2);
-        tabla_de_producciones_.push_back(anadir_en_tabla);
-        anadir_en_tabla.clear();
-        value_holder2 = "";
-        valor_original = "";
+          for (auto z = 0; z < todos_estados_no_terminales_.size();
+               z++) {  // borrar si repetido en todos
+            if (random == todos_estados_no_terminales_[z]) {
+              todos_estados_no_terminales_.erase(
+                  todos_estados_no_terminales_.begin() + z);
+            }
+          }
 
-      } else if (tabla_de_producciones_[i][j].size() == 2) {  // =2 carat
-        // se comprueba si los 2 caracteres son no terminales no se hace nada
-        // si uno de los 2 caracteres es terminal se crea un estado no terminal
-        // que se le asigna a los 2 caracteres se sustituye en todas las
-        // ocurrencias de la tabla de transiciones se anade a la tabla de
-        // transiciones el nuevo estado no terminal
+          valor_original = tabla_de_producciones_[i][j];  // = a string original
+          std::string value_holder2 = "";
 
-      }  // si tiene un caracter se supone que solo puede estar en la raiz
+          value_holder2 = estados_terminales_[k];
+          anadir_en_tabla.push_back(value_holder2);
+          value_holder2 = "";
+
+          tabla_de_producciones_.push_back(anadir_en_tabla);
+          anadir_en_tabla.clear();
+
+          valor_original = "";
+        }
+      }
     }
   }
   // Inutiles();
